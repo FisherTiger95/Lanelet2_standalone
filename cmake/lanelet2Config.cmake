@@ -23,7 +23,7 @@ set(lanelet2_LIBRARIES
     ${Boost_LIBRARIES}
     ${PYTHON_LIBRARY}
     ${GeographicLib_LIBRARIES}
-    ${PugiXML_LIBRARIES}
+    ${PUGIXML_LIBRARIES}
 )
 
 set(lanelet2_FOUND true)
