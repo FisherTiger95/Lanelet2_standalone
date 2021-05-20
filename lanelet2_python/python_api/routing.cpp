@@ -4,7 +4,7 @@
 #include <boost/make_shared.hpp>
 #include <boost/python.hpp>
 
-#include "lanelet2_python/internal/converter.h"
+#include "converter.h"
 
 using namespace boost::python;
 using namespace lanelet;

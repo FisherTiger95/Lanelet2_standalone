@@ -10,7 +10,7 @@
 #include <boost/python/suite/indexing/map_indexing_suite.hpp>
 #include <boost/python/suite/indexing/vector_indexing_suite.hpp>
 
-#include "lanelet2_python/internal/converter.h"
+#include "converter.h"
 
 using namespace boost::python;
 using namespace lanelet;
