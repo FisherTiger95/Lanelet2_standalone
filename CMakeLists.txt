@@ -7,7 +7,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -fPIC")
 ###################
 ## Find packages ##
 ###################
-option(USE_PYTHON3 "Use python 3 to build libraries." ON)
+option(USE_PYTHON3 "Use python 3 to build libraries." OFF)
 if (USE_PYTHON3)
   find_package(Boost REQUIRED COMPONENTS python-py36 serialization system filesystem)
   find_package(PythonLibs 3.5 REQUIRED)
@@ -64,18 +64,20 @@ foreach(SUBMODULE ${MODUELS})
 endforeach()
 
 # build each python api binding submodule
-foreach(SUBMODULE ${MODUELS})
-  set(API_LIBRARY_NAME "${PROJECT_NAME}_${SUBMODULE}_pyapi")
-  add_library(${API_LIBRARY_NAME} SHARED
-    lanelet2_python/python_api/${SUBMODULE}.cpp  # binding codes
-  )
-  target_compile_definitions(${API_LIBRARY_NAME} PRIVATE -DPYTHON_API_MODULE_NAME=lib${API_LIBRARY_NAME})
-  target_link_libraries(${API_LIBRARY_NAME}
-    ${Boost_LIBRARIES}
-    ${PYTHON_LIBRARY}
-    ${LINKED_LIBRARIES}
-  )
-endforeach()
+if(USE_PYTHON3)
+  foreach(SUBMODULE ${MODUELS})
+    set(API_LIBRARY_NAME "${PROJECT_NAME}_${SUBMODULE}_pyapi")
+    add_library(${API_LIBRARY_NAME} SHARED
+      lanelet2_python/python_api/${SUBMODULE}.cpp  # binding codes
+    )
+    target_compile_definitions(${API_LIBRARY_NAME} PRIVATE -DPYTHON_API_MODULE_NAME=lib${API_LIBRARY_NAME})
+    target_link_libraries(${API_LIBRARY_NAME}
+      ${Boost_LIBRARIES}
+      ${PYTHON_LIBRARY}
+      ${LINKED_LIBRARIES}
+    )
+  endforeach()
+endif()
 
 # validation binary
 #add_executable(${PROJECT_NAME}_validate
